@@ -1,5 +1,6 @@
 # Full stack Web App Using Nextjs and Flask with mysql db
-the guide also available in README.md in frontend folder
+- the mysql db need to be installed and run before running the application
+- this app also uses the local ollama model which is llama3.2 and running
 
 ## A. Setup FrontEnd - Using Next.js
 
@@ -11,22 +12,21 @@ the guide also available in README.md in frontend folder
   node -v
   npm -v
   ```
-### 2. Set Up Your Next.js Project
+### 2. Navigate to Your Project
+
+Move into the project directory:
+```bash
+cd frontend
+```
+### 3. Set Up Your Next.js Project
 
 Use the following command to create a new Next.js app:
 
 - Using **npm**:
   ```bash
-  npx create-next-app@latest my-next-app
+  npm install
   ```
 Replace `my-next-app` with your desired project name.
-
-### 3. Navigate to Your Project
-
-Move into the project directory:
-```bash
-cd my-next-app
-```
 
 ### 4. Start the Development Server
 
@@ -40,7 +40,6 @@ Run the development server:
 By default, the server runs on [http://localhost:3000](http://localhost:3000).
 
 ## B. Setting Up Back End - using Flask 
-the guide also available in README.md in backend folder
 
 ### Steps to Create and Activate a Virtual Environment
 
@@ -59,18 +58,18 @@ the guide also available in README.md in backend folder
      ```bash
      venv\Scripts\activate
      ```
-   - On **macOS/Linux**:  
-     ```bash
-     source venv/bin/activate
-     ```
-
+4. **Run pip command to install packages**
+    - This will take some time to finish
+   ```bash
+   pip install-r requirements.txt
+   ```
 ### Running Your Python Application
 
-4. **Run the Python Application**  
+5. **Run the Python Application**  
    ```bash
    python app.py
    ```
-5. **To dexit the environment**  
+6. **To dexit the environment**  
    ```bash
    deactivate
    ```

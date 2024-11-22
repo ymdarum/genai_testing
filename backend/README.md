@@ -22,14 +22,18 @@
      ```bash
      source venv/bin/activate
      ```
-
+4. **Installing the python packages**  
+   - On **Windows (will take some time to finish)**:  
+     ```bash
+     pip install -r requirements.txt
+     ```
 ## Running Your Python Application
 
-4. **Run the Python Application**  
+5. **Run the Python Application**  
    ```bash
    python app.py
    ```
-5. **To dexit the environment**  
+56. **To dexit the environment**  
    ```bash
    deactivate
    ```
