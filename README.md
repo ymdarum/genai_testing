@@ -1,6 +1,6 @@
 # Full stack Web App Using Nextjs and Flask with mysql db
 - the mysql db need to be installed and run before running the application
-- this app also uses the local ollama model which is llama3.2 and running
+- this app also uses the local ollama model which is llama3.2 and running xx
 
 ## A. Setup FrontEnd - Using Next.js
 
