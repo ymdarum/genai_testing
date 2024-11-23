@@ -4,4 +4,5 @@ Flask-SQLAlchemy
 pymysql
 scikit-learn
 requests
-sentence-transformers==2.2.2 
+sentence-transformers
+bert-score
