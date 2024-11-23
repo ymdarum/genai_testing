@@ -1,6 +1,6 @@
 # Full stack Web App Using Nextjs and Flask (mysql db and Ollama llama3.2)
----
-
+- the mysql db need to be installed and run before running the application
+- 
 ## A. Using Ollama with Llama 3.2
 
 This guide provides step-by-step instructions to set up and use the Ollama CLI with the Llama 3.2 model.
@@ -127,7 +127,7 @@ Run the development server:
    ```bash
    python app.py
    ```
-6. **To dexit the environment**  
+6. **To exit the environment**  
    ```bash
    deactivate
    ```
