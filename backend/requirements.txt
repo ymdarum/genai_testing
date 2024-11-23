@@ -6,3 +6,4 @@ scikit-learn
 requests
 sentence-transformers
 bert-score
+nltk
