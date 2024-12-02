@@ -1,6 +1,13 @@
-# Full stack Web App Using Nextjs and Flask (mysql db and Ollama llama3.2)
-- the mysql db need to be installed and run before running the application
-- 
+# Web App Using Nextjs and Flask (mysql db and Ollama llama3.2)
+- This repo demonstrate an application to test the ability to test and evaluate LLM response.
+- Some of the evaluations metrices icludes:
+  - Calculate relevancy score using TF-IDF and cosine similarity
+  - Calculate accuracy score using metric such s levenshtein distance
+  - Calculate BLEU score
+  - Calculate BERT score between expected and actual outputs
+## Pre-requisite to run:
+- as all the result will be push to db, this require mysql db need to be installed and run before running the application
+  
 ## A. Using Ollama with Llama 3.2
 
 This guide provides step-by-step instructions to set up and use the Ollama CLI with the Llama 3.2 model.
