@@ -17,6 +17,7 @@
 /.next/
 /out/
 /venv/
+misc/
 
 # production
 /build
