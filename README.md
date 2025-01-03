@@ -170,7 +170,9 @@ The server must be running for queries to work.
 - **Install npm or Yarn**: These package managers come with Node.js. Verify the installation:
   ```bash
   node -v
+   -> v22.11.0
   npm -v
+  -> 11.0.0
   ```
 
 ### 2. Navigate to Your Project
