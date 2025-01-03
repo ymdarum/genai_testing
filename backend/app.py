@@ -276,33 +276,33 @@ def init_db():
             columns = inspector.get_columns('test_results')
             column_names = [col['name'] for col in columns]
             
-            if 'bert_score' not in column_names:
-                print("Adding bert_score column...")
-                try:
-                    # Use text() to create a proper SQL expression
-                    sql = db.text('ALTER TABLE test_results ADD COLUMN bert_score FLOAT NOT NULL DEFAULT 0.0')
-                    db.session.execute(sql)
-                    db.session.commit()
-                    print("bert_score column added successfully!")
-                except Exception as e:
-                    print(f"Error adding bert_score column: {str(e)}")
-                    db.session.rollback()
-            else:
-                print("bert_score column already exists.")
+            # if 'bert_score' not in column_names:
+            #     print("Adding bert_score column...")
+            #     try:
+            #         # Use text() to create a proper SQL expression
+            #         sql = db.text('ALTER TABLE test_results ADD COLUMN bert_score FLOAT NOT NULL DEFAULT 0.0')
+            #         db.session.execute(sql)
+            #         db.session.commit()
+            #         print("bert_score column added successfully!")
+            #     except Exception as e:
+            #         print(f"Error adding bert_score column: {str(e)}")
+            #         db.session.rollback()
+            # else:
+            #     print("bert_score column already exists.")
             
             # Check if advance_score column exists
-            if 'advance_score' not in column_names:
-                print("Adding advance_score column...")
-                try:
-                    sql = db.text('ALTER TABLE test_results ADD COLUMN advance_score FLOAT NOT NULL DEFAULT 0.0')
-                    db.session.execute(sql)
-                    db.session.commit()
-                    print("advance_score column added successfully!")
-                except Exception as e:
-                    print(f"Error adding advance_score column: {str(e)}")
-                    db.session.rollback()
-            else:
-                print("advance_score column already exists.")
+            # if 'advance_score' not in column_names:
+            #     print("Adding advance_score column...")
+            #     try:
+            #         sql = db.text('ALTER TABLE test_results ADD COLUMN advance_score FLOAT NOT NULL DEFAULT 0.0')
+            #         db.session.execute(sql)
+            #         db.session.commit()
+            #         print("advance_score column added successfully!")
+            #     except Exception as e:
+            #         print(f"Error adding advance_score column: {str(e)}")
+            #         db.session.rollback()
+            # else:
+            #     print("advance_score column already exists.")
             
         except Exception as e:
             print(f"Error during database initialization: {str(e)}")
