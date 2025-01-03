@@ -1,6 +1,17 @@
 'use client';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styles from './TestInterface.module.css';
+import { FaInfoCircle } from 'react-icons/fa';
+
+// Add tooltips content
+const tooltips = {
+  bert: "BERT Score measures semantic similarity between the model's response and expected output using BERT embeddings (0-100%)",
+  bleu: "BLEU Score evaluates the quality of machine-generated text by comparing it to reference text using n-gram precision (0-100%)",
+  relevancy: "Relevancy Score indicates how well the response addresses the core elements of the prompt (0-100%)",
+  accuracy: "Accuracy Score measures the factual correctness of the response compared to the expected output (0-100%)",
+  responseTime: "Response Time shows how long the model took to generate the answer in seconds",
+  advanced: "Advanced Score is a composite metric combining multiple evaluation factors (0-100%)"
+};
 
 export default function TestInterface() {
   const [prompt, setPrompt] = useState('');
@@ -17,6 +28,7 @@ export default function TestInterface() {
 
     setLoading(true);
     setError(null);
+    const requestStartTime = Date.now() / 1000; // Convert to seconds to match Python time.time()
 
     try {
       const response = await fetch('http://localhost:5000/api/test', {
@@ -27,6 +39,7 @@ export default function TestInterface() {
         body: JSON.stringify({
           prompt: prompt.trim(),
           expectedOutput: expectedOutput.trim(),
+          requestStartTime: requestStartTime
         }),
       });
 
@@ -36,7 +49,12 @@ export default function TestInterface() {
       }
 
       const data = await response.json();
-      setResults(data);
+      setResults({
+        ...data,
+        model_response: data.model_response,
+        response_time: data.response_time,
+        model_time: data.model_time // Add this if you want to show model processing time separately
+      });
     } catch (error) {
       console.error('Error:', error);
       setError(error.message);
@@ -112,9 +130,7 @@ export default function TestInterface() {
             <div className={styles.metric}>
               <div className={styles.metricHeader}>
                 <h3>BERT Score</h3>
-                <div className={styles.infoIcon} title="BERT Score uses contextual embeddings to measure semantic similarity between the expected and actual outputs. Higher scores indicate better semantic matching.">
-                  ℹ️
-                </div>
+                <FaInfoCircle className={styles.infoIcon} title={tooltips.bert} />
               </div>
               <div className={styles.scoreContainer}>
                 <span className={getScoreColor(results.bert_score)}>
@@ -125,9 +141,7 @@ export default function TestInterface() {
             <div className={styles.metric}>
               <div className={styles.metricHeader}>
                 <h3>BLEU Score</h3>
-                <div className={styles.infoIcon} title="BLEU Score measures the quality of machine-translated text by comparing it to reference translations. Higher scores indicate better quality.">
-                  ℹ️
-                </div>
+                <FaInfoCircle className={styles.infoIcon} title={tooltips.bleu} />
               </div>
               <div className={styles.scoreContainer}>
                 <span className={getScoreColor(results.bleu_score)}>
@@ -138,9 +152,7 @@ export default function TestInterface() {
             <div className={styles.metric}>
               <div className={styles.metricHeader}>
                 <h3>Relevancy Score</h3>
-                <div className={styles.infoIcon} title="Relevancy Score indicates how well the response addresses the given prompt. Higher scores mean more relevant responses.">
-                  ℹ
-                </div>
+                <FaInfoCircle className={styles.infoIcon} title={tooltips.relevancy} />
               </div>
               <div className={styles.scoreContainer}>
                 <span className={getScoreColor(results.relevancy_score)}>
@@ -151,9 +163,7 @@ export default function TestInterface() {
             <div className={styles.metric}>
               <div className={styles.metricHeader}>
                 <h3>Accuracy Score</h3>
-                <div className={styles.infoIcon} title="Accuracy Score compares how closely the model's response matches the expected output. Higher scores indicate better accuracy.">
-                  ℹ️
-                </div>
+                <FaInfoCircle className={styles.infoIcon} title={tooltips.accuracy} />
               </div>
               <div className={styles.scoreContainer}>
                 <span className={getScoreColor(results.accuracy_score)}>
@@ -164,18 +174,17 @@ export default function TestInterface() {
             <div className={styles.metric}>
               <div className={styles.metricHeader}>
                 <h3>Response Time</h3>
-                <div className={styles.infoIcon} title="Time taken by the model to generate the response, measured in seconds.">
-                  ℹ️
-                </div>
+                <FaInfoCircle 
+                  className={styles.infoIcon} 
+                  title={tooltips.responseTime + " (Total time: " + results.response_time + "s, Model processing: " + results.model_time + "s)"} 
+                />
               </div>
               <span>{results.response_time}s</span>
             </div>
             <div className={styles.metric}>
               <div className={styles.metricHeader}>
                 <h3>Advanced Score</h3>
-                <div className={styles.infoIcon} title="Advanced semantic similarity score using sentence transformers. Measures deep contextual understanding between expected and actual outputs.">
-                  ℹ️
-                </div>
+                <FaInfoCircle className={styles.infoIcon} title={tooltips.advanced} />
               </div>
               <div className={styles.scoreContainer}>
                 <span className={getScoreColor(results.advance_score)}>

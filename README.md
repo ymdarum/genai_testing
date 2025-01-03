@@ -56,9 +56,9 @@ USE genai_tests;
 -- Create the test_results table
 CREATE TABLE IF NOT EXISTS test_results (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    prompt VARCHAR(1000) NOT NULL,
-    expected_output VARCHAR(1000) NOT NULL,
-    model_response VARCHAR(5000) NOT NULL,
+    prompt TEXT NOT NULL,
+    expected_output TEXT NOT NULL,
+    model_response TEXT NOT NULL,
     relevancy_score FLOAT NOT NULL,
     accuracy_score FLOAT NOT NULL,
     bleu_score FLOAT NOT NULL,

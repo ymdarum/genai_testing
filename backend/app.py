@@ -12,6 +12,7 @@ from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 from bert_score import score
 import torch
 from sentence_transformers import SentenceTransformer, util
+import warnings
 
 # Download required NLTK data
 nltk.download('punkt')
@@ -29,13 +30,15 @@ db = SQLAlchemy(app)
 # Initialize the model globally
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
+warnings.filterwarnings("ignore", message="Some weights of RobertaModel were not initialized")
+
 class TestResult(db.Model):
     __tablename__ = 'test_results'
     
     id = db.Column(db.Integer, primary_key=True)
-    prompt = db.Column(db.String(1000), nullable=False)
-    expected_output = db.Column(db.String(1000), nullable=False)
-    model_response = db.Column(db.String(5000), nullable=False)
+    prompt = db.Column(db.Text, nullable=False)
+    expected_output = db.Column(db.Text, nullable=False)
+    model_response = db.Column(db.Text, nullable=False)
     relevancy_score = db.Column(db.Float, nullable=False)
     accuracy_score = db.Column(db.Float, nullable=False)
     bleu_score = db.Column(db.Float, nullable=False)
@@ -134,8 +137,16 @@ def calculate_bert_score(expected, actual):
         refs = [expected]
         hyps = [actual]
         
-        # Calculate BERT score (P, R, F1)
-        P, R, F1 = score(hyps, refs, lang="en", verbose=False)
+        # Calculate BERT score (P, R, F1) with specific model to avoid warnings
+        P, R, F1 = score(
+            hyps, 
+            refs, 
+            lang="en", 
+            verbose=False,
+            model_type="microsoft/deberta-xlarge-mnli",  # Use DeBERTa instead of RoBERTa
+            num_layers=None,  # Use all layers
+            batch_size=1
+        )
         
         # Convert to percentage and use F1 as the main score
         bert_score = float(F1.mean().item() * 100)
@@ -186,9 +197,10 @@ def run_test():
         data = request.json
         prompt = data['prompt']
         expected_output = data['expectedOutput']
+        request_start_time = data.get('requestStartTime', time.time())  # Get start time from frontend
         
         # Get model response
-        model_response, response_time = get_llama_response(prompt)
+        model_response, model_time = get_llama_response(prompt)
         
         # Calculate all metrics
         relevancy_score = calculate_relevancy(expected_output, model_response)
@@ -197,12 +209,16 @@ def run_test():
         bert_score = calculate_bert_score(expected_output, model_response)
         advance_score = calculate_advance_score(expected_output, model_response)
         
+        # Calculate total response time from request start to completion
+        total_response_time = time.time() - float(request_start_time)
+        
         metrics = {
             'relevancy_score': round(relevancy_score, 2),
             'accuracy_score': round(accuracy_score, 2),
             'bleu_score': round(bleu_score, 2),
             'bert_score': round(bert_score, 2),
-            'response_time': round(response_time, 2),
+            'response_time': round(total_response_time, 2),  # Total time including network latency
+            'model_time': round(model_time, 2),  # Just the model processing time
             'model_response': model_response,
             'advance_score': round(advance_score, 2),
         }
