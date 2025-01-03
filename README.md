@@ -2,15 +2,49 @@
 - The MySQL database needs to be installed and running before running the application.
 
 ## Prerequisites
-- **MySQL Setup**: Ensure that MySQL is installed and a database is created for this application. For a detailed guide on installing and setting up MySQL, refer to the [official MySQL documentation](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/). Additionally, ensure that a database is created specifically for this application. You can use the following SQL command to create a database:
+### A1. MySQL Setup: 
+Ensure that MySQL is installed and a database is created for this application. For a detailed guide on installing and setting up MySQL, refer to the [official MySQL documentation](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/). Additionally, ensure that a database is created specifically for this application. You can use the following SQL command to create a database:
 ```sql
 CREATE DATABASE genai_tests;
 ```
 
-## A. Using Ollama with Llama 3.2
+### Database Setup
+
+To set up the MySQL database for this application, you can use the following SQL commands:
+
+```sql
+-- Create the database
+CREATE DATABASE IF NOT EXISTS genai_tests;
+
+-- Use the newly created database
+USE genai_tests;
+
+-- Create the test_results table
+CREATE TABLE IF NOT EXISTS test_results (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    prompt VARCHAR(1000) NOT NULL,
+    expected_output VARCHAR(1000) NOT NULL,
+    model_response VARCHAR(5000) NOT NULL,
+    relevancy_score FLOAT NOT NULL,
+    accuracy_score FLOAT NOT NULL,
+    bleu_score FLOAT NOT NULL,
+    bert_score FLOAT NOT NULL,
+    response_time FLOAT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    advance_score FLOAT NOT NULL
+);
+```
+
+### Instructions to Execute SQL Commands
+1. Open your MySQL command line or a database management tool (like MySQL Workbench).
+2. Copy and paste the above SQL commands into the query window.
+3. Execute the commands to create the database and the table.
+
+This will set up the database structure required for the application to function correctly.
+
+## A2. Using Ollama with Llama 3.2
 
 This guide provides step-by-step instructions to set up and use the Ollama CLI with the Llama 3.2 model.
-### Prerequisites
 
 - Ensure your system meets the requirements to run Ollama CLI.
 - A stable internet connection is required to download the model.
