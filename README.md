@@ -25,6 +25,7 @@ To check if MySQL is running, you can use the following commands based on your o
   net start | find "MySQL"
   ```
 - output:
+
    ![checking in CMD](frontend/public/mysql_cmd.PNG)
 
 - **On macOS**:
