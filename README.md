@@ -8,6 +8,39 @@ Ensure that MySQL is installed and a database is created for this application. F
 CREATE DATABASE genai_tests;
 ```
 
+### Checking MySQL Status
+To check if MySQL is running, you can use the following commands based on your operating system:
+
+- **On Windows Power Shell**:
+  Open Command Prompt and run:
+  ```bash
+  netstat -aon | findstr :3306
+  ```
+- output:
+   ![checking in Power Shell](frontend/public/mysql_ps.PNG)
+
+  - **On Windows Command Line**:
+  Open Command Prompt and run:
+  ```bash
+  net start | find "MySQL"
+  ```
+- output:
+   ![checking in CMD](frontend/public/mysql_cmd.PNG)
+
+- **On macOS**:
+  Open Terminal and run:
+  ```bash
+  brew services list | grep mysql
+  ```
+
+- **On Linux**:
+  Open Terminal and run:
+  ```bash
+  systemctl status mysql
+  ```
+
+If MySQL is running, you should see a message indicating that the service is active.
+
 ### Database Setup
 
 To set up the MySQL database for this application, you can use the following SQL commands:
@@ -170,7 +203,7 @@ Run the development server:
   ```
 
 - output:
-   ```
+   ```bash
    > frontend@0.1.0 dev
    > next dev --turbopack
 
