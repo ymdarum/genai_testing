@@ -162,10 +162,6 @@ The server must be running for queries to work.
 - backend console:
 ![backend console](frontend/public/backend_cmd.PNG)
 
-6. **To exit the environment**  
-   ```bash
-   deactivate
-   ```
 
 ## C. Setting Up FrontEnd - Using Next.js
 ### 1. Ensure Prerequisites
