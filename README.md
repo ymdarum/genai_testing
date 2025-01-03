@@ -185,4 +185,4 @@ Run the development server:
 
 ### 5. Open the browser and navigate to [http://localhost:3000](http://localhost:3000)
 Landing Page:
-![landing page on port 3000](frontend/public/landing_pg.png)
+![landing page on port 3000](frontend/public/landing_pg.PNG)
