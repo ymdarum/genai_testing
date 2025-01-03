@@ -7,3 +7,4 @@ requests
 sentence-transformers
 bert-score
 nltk
+cryptography

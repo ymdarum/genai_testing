@@ -1,6 +1,12 @@
 # Full stack Web App Using Nextjs and Flask (mysql db and Ollama llama3.2)
-- the mysql db need to be installed and run before running the application
-- 
+- The MySQL database needs to be installed and running before running the application.
+
+## Prerequisites
+- **MySQL Setup**: Ensure that MySQL is installed and a database is created for this application. For a detailed guide on installing and setting up MySQL, refer to the [official MySQL documentation](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/). Additionally, ensure that a database is created specifically for this application. You can use the following SQL command to create a database:
+```sql
+CREATE DATABASE genai_tests;
+```
+
 ## A. Using Ollama with Llama 3.2
 
 This guide provides step-by-step instructions to set up and use the Ollama CLI with the Llama 3.2 model.
@@ -42,17 +48,9 @@ To interact with the model, start the Ollama server:
 ```bash
 ollama serve
 ```
-
+- ollama server console:
+![ollama serve console](frontend/public/ollama_serve.PNG)
 The server must be running for queries to work.
-
-### Step 5: Query the Llama 3.2 Model
-With the server running, you can send queries to Llama 3.2. For example:
-
-```bash
-ollama query "Your prompt here"
-```
-
-Replace `"Your prompt here"` with your desired input to interact with the model.
 
 ### Troubleshooting
 - If the `ollama` command is not recognized, ensure the CLI is installed and added to your system's PATH.
@@ -61,7 +59,47 @@ Replace `"Your prompt here"` with your desired input to interact with the model.
 - For further assistance, visit the [Ollama Documentation](https://ollama.com/docs).
 ---
 
-## B. Setup FrontEnd - Using Next.js
+## B. Setup Back End - using Flask 
+
+### Steps to Create and Activate a Virtual Environment
+
+1. **Navigate to the `backend` Directory**  
+   ```bash
+   cd backend
+   ```
+
+2. **Create the Virtual Environment**  
+   ```bash
+   python -m venv venv
+   ```
+
+3. **Activate the Virtual Environment**  
+   - On **Windows**:  
+     ```bash
+     venv\Scripts\activate
+     ```
+
+4. **Run pip command to install packages**
+    - This will take some time to finish
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+### Running Your Python Application
+
+5. **Run the Python Application**  
+   ```bash
+   python app.py
+   ```
+- backend console:
+![backend console](frontend/public/backend_cmd.PNG)
+
+6. **To exit the environment**  
+   ```bash
+   deactivate
+   ```
+
+## C. Setting Up FrontEnd - Using Next.js
 ### 1. Ensure Prerequisites
 
 - **Install Node.js**: Ensure you have the latest stable version of Node.js installed. You can download it from [Node.js](https://nodejs.org).
@@ -70,12 +108,14 @@ Replace `"Your prompt here"` with your desired input to interact with the model.
   node -v
   npm -v
   ```
+
 ### 2. Navigate to Your Project
 
 Move into the project directory:
 ```bash
 cd frontend
 ```
+
 ### 3. Set Up Your Next.js Project
 
 Use the following command to create a new Next.js app:
@@ -95,39 +135,20 @@ Run the development server:
   npm run dev
   ```
 
-- By default, the server runs on [http://localhost:3000](http://localhost:3000).
----
-## C. Setting Up Back End - using Flask 
+- output:
+   ```
+   > frontend@0.1.0 dev
+   > next dev --turbopack
 
-### Steps to Create and Activate a Virtual Environment
+      ▲ Next.js 15.0.3 (Turbopack)
+      - Local:        http://localhost:3000
 
-1. **Navigate to the `backend` Directory**  
-   ```bash
-   cd backend
+   ✓ Starting...
+   ✓ Ready in 4.8s
+
+   - By default, the server runs on [http://localhost:3000]
    ```
 
-2. **Create the Virtual Environment**  
-   ```bash
-   python -m venv venv
-   ```
-
-3. **Activate the Virtual Environment**  
-   - On **Windows**:  
-     ```bash
-     venv\Scripts\activate
-     ```
-4. **Run pip command to install packages**
-    - This will take some time to finish
-   ```bash
-   pip install-r requirements.txt
-   ```
-### Running Your Python Application
-
-5. **Run the Python Application**  
-   ```bash
-   python app.py
-   ```
-6. **To exit the environment**  
-   ```bash
-   deactivate
-   ```
+### 5. Open the browser and navigate to [http://localhost:3000](http://localhost:3000)
+Landing Page:
+![landing page on port 3000](frontend/public/landing_pg.png)
